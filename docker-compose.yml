@@ -1,0 +1,19 @@
+services:
+  nexus:
+    image: nexus3-gitlabpatauth
+    build:
+      context: .
+      args:
+        RELEASE_TAG: ${VERSION}
+        PLUGIN_NAME: ${ARTIFACT}
+        PACKAGE: ${PACKAGE}
+        PACKAGE_DOT: ${PACKAGE_DOT}
+    ports:
+      - 8081:8081
+      - 8082:8082
+    volumes:
+      - /nexus-data
+      - ./gitlabpatauth.properties:/opt/sonatype/nexus/etc/gitlabpatauth.properties
+      - ./target/${ARTIFACT}-${VERSION}.jar:/opt/sonatype/nexus/system/${PACKAGE}/${ARTIFACT}/${VERSION}/${ARTIFACT}-${VERSION}.jar
+      - ./target/feature/feature.xml:/opt/sonatype/nexus/system/${PACKAGE}/${ARTIFACT}/${VERSION}/${ARTIFACT}-${VERSION}-features.xml
+      - ./pom.xml:/opt/sonatype/nexus/system/${PACKAGE}/${ARTIFACT}/${VERSION}/pom.xml

@@ -1,0 +1,23 @@
+# URL of Gitlab instance
+gitlab.url=https://gitlab.com
+
+# Time to cache login (to not call Gitlab API multiple times in a short period of time, e.g. when downloading dependencies)
+gitlab.cache-ttl-minutes=1
+
+# Minimal user's access level for group - groups, where the user has access above
+#  or equal to this level, will be fetched from GitLab
+# Default = 10
+#  Values - Guest = 10, Reporter = 20, Developer = 30, Maintainer = 40, Owner = 50
+gitlab.group-minimal-access-level=10
+
+# Comma-separated list of allowed groups to login.
+# Default - null value
+#   Null value - allow any user to log in
+#   Empty (blank) value - allow any user to log in
+#gitlab.groups-allowed=
+
+# Comma-separated list of mapped groups to roles.
+# Default - null value
+#   Null value - map all user groups to roles
+#   Empty value - do not map any group
+#gitlab.groups-mapped=my-fancy-group

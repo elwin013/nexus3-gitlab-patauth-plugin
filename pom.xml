@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.elwin013</groupId>
+    <artifactId>nexus3-gitlab-patauth-plugin</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <description>
+        A plugin for Sonatype Nexus OSS that adds an authentication realm
+        allowing to authenticate using GitLab
+        username and personal access token (PAT).
+    </description>
+
+    <parent>
+        <groupId>org.sonatype.nexus.plugins</groupId>
+        <artifactId>nexus-plugins</artifactId>
+        <version>3.42.0-01</version>
+    </parent>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <packaging>bundle</packaging>
+
+
+    <scm>
+        <developerConnection>scm:git:git@github.com:elwin013/nexus3-gitlab-patauth-plugin.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <dryRun>true</dryRun>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jersey.version>2.39.1</jersey.version>
+        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
+        <httpclient.version>4.5.13</httpclient.version>
+        <httpcore.version>4.4.13</httpcore.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.sonatype.nexus</groupId>
+            <artifactId>nexus-plugin-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sonatype.nexus</groupId>
+            <artifactId>nexus-capability</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpcore.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sonatype.goodies</groupId>
+            <artifactId>goodies-testsupport</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.karaf.tooling</groupId>
+                <artifactId>karaf-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Vendor>elwin013</Bundle-Vendor>
+                        <Bundle-Description>${project.description}</Bundle-Description>
+                        <Bundle-License>
+                            https://github.com/elwin013/nexus3-gitlab-patauth-plugin/blob/master/LICENSE
+                        </Bundle-License>
+                        <Bundle-DocURL>https://github.com/elwin013/nexus3-gitlab-patauth-plugin</Bundle-DocURL>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Import-Package>*</Import-Package>
+                        <Embed-Dependency>
+                            httpclient;scope=compile
+                        </Embed-Dependency>
+                        <Export-Package>
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>${maven-release-plugin.version}</version>
+                            <configuration>
+                                <tagNameFormat>v@{project.version}</tagNameFormat>
+                                <dryRun>${dryRun}</dryRun>
+                            </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
