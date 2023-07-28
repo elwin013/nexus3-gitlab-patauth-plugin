@@ -8,3 +8,4 @@
 /dataSources.local.xml
 # Zeppelin ignored files
 /ZeppelinRemoteNotebooks/
+/kubernetes-settings.xml

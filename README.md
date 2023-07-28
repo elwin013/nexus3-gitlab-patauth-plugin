@@ -95,4 +95,4 @@ To build a plugin run `mvn clean package`.
 
 ## License
 
-[MIT](License)
+[MIT](LICENSE)
