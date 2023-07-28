@@ -8,7 +8,7 @@ personal access token (PAT) with scopes:
 Successfully logged-in user groups will be mapped into roles (if a role in Nexus is created). For more details on that
 and additional configuration - see below.
 
-The reason for `read_api` scope is security - it is safe to use only non-admin user credentials in the other services.
+The reason for `read_api` scope is security - it is safer to use only non-admin user credentials in the other services.
 
 Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1.
 
