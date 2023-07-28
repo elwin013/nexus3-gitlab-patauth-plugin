@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Named
 @Description("GitLab PAT Authentication Realm")
 public class GitlabPatAuthRealm extends AuthorizingRealm {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GitlabPatAuthRealm.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GitlabPatAuthRealm.class);
     private final GitlabApiWrapper apiWrapper;
     private final UserManager userManager;
 
@@ -42,7 +42,7 @@ public class GitlabPatAuthRealm extends AuthorizingRealm {
         Object principal = principalCollection.getPrimaryPrincipal();
         if (principal instanceof GitlabPrincipal) {
             GitlabPrincipal gitlabPrincipal = (GitlabPrincipal) principal;
-            LOGGER.info("doGetAuthorizationInfo for user {} with roles {}", gitlabPrincipal.getUsername(), gitlabPrincipal.getGroups());
+            LOG.info("doGetAuthorizationInfo for user {} with roles {}", gitlabPrincipal.getUsername(), gitlabPrincipal.getGroups());
             info = new SimpleAuthorizationInfo(gitlabPrincipal.getGroups().stream().map(GitlabPrincipal.Group::getPath).collect(Collectors.toSet()));
         }
         return info;
@@ -91,6 +91,7 @@ public class GitlabPatAuthRealm extends AuthorizingRealm {
         user.setStatus(UserStatus.active);
         user.setEmailAddress(principal.getEmail());
         user.setRoles(principal.getGroups().stream().map(s -> new RoleIdentifier(UserManager.DEFAULT_SOURCE, s.getPath())).collect(Collectors.toSet()));
+        // random UUID as a password to disallow changing password by user
         userManager.addUser(user, UUID.randomUUID().toString());
     }
 }
