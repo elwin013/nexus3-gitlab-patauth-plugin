@@ -16,12 +16,14 @@ Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1.
 
 ### Installation
 
+In below steps `${NEXUS_DIR}` is a Nexus directory with binaries. In most cases it is `/opt/sonatype/nexus` or `/opt/nexus`.
+
 #### 1. Add plugin to Nexus
 
 In general, do the steps mentioned in [this nexus development guide](https://sonatype-nexus-community.github.io/nexus-development-guides/plugin-install.html).
 
-Simples solution is to run single command to download `jar` into the `<nexus_dir>/deploy` folder.
-Example of command for current version below - it assumes that your `<nexus_dir>` is `/opt/sonatype/nexus`.
+Simples solution is to run single command to download `jar` into the `${NEXUS_DIR}/deploy` folder.
+Example of command for current version below - it assumes that your `${NEXUS_DIR}` is `/opt/sonatype/nexus`.
 Please note that in some cases it can be `/opt/nexus` - you should tweak it accordingly.
 
 ```sh
@@ -30,7 +32,7 @@ wget -O /opt/sonatype/nexus/deploy/nexus3-gitlab-patauth-plugin-1.0.0.jar https:
 
 #### 2. Create configuration
 
-Create `/opt/sonatype/nexus/etc/gitlabpatauth.properties` configuration. You can copy `gitlabpatauth.properties.README`
+Create `${NEXUS_DIR}/etc/gitlabpatauth.properties` configuration. You can copy `gitlabpatauth.properties.README`
 from this repository and tweak it to your needs. For details see the aforementioned file and _Configuration_ section
 below.
 
@@ -51,7 +53,7 @@ Please note that `id` of the role needs to be equal to the path of the GitLab gr
 ### Configuration
 
 Please see `gitlabpatauth.properties.README` for the properties file with default values. Copy this file to
-`/opt/sonatype/nexus/etc/gitlabpatauth.properties` and tweak them accordingly.
+`${NEXUS_DIR}/etc/gitlabpatauth.properties` and tweak them accordingly.
 
 Available properties:
 * `gitlab.url` - URL of Gitlab instance
