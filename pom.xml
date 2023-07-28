@@ -4,7 +4,7 @@
 
     <groupId>com.elwin013</groupId>
     <artifactId>nexus3-gitlab-patauth-plugin</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <description>
         A plugin for Sonatype Nexus OSS that adds an authentication realm
         allowing to authenticate using GitLab
@@ -23,7 +23,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:elwin013/nexus3-gitlab-patauth-plugin.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0.1</tag>
     </scm>
 
     <properties>
