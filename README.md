@@ -20,15 +20,12 @@ Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1.
 
 In general, do the steps mentioned in [this nexus development guide](https://sonatype-nexus-community.github.io/nexus-development-guides/plugin-install.html).
 
-The above link can be summarized by three commands:
-1. create a directory
-2. download the plugin jar
-3. create an entry in `startup.properties` to load the plugin on Nexus start
+Simples solution is to run single command to download `jar` into the `<nexus_dir>/deploy` folder.
+Example of command for current version below - it assumes that your `<nexus_dir>` is `/opt/sonatype/nexus`.
+Please note that in some cases it can be `/opt/nexus` - you should tweak it accordingly.
 
 ```sh
-mkdir -p /opt/sonatype/nexus/system/com/elwin013/ && \
-wget -O /opt/sonatype/nexus/system/com/elwin013/nexus3-gitlab-patauth-plugin-1.0.0.jar https://github.com/elwin013/nexus3-gitlab-patauth-plugin/releases/download/v1.0.0/nexus3-gitlab-patauth-plugin-1.0.0.jar && \
-echo "mvn\:com.elwin013/nexus3-gitlab-patauth-plugin/1.0.0 = 200" >> /opt/sonatype/nexus/etc/karaf/startup.properties
+wget -O /opt/sonatype/nexus/deploy/nexus3-gitlab-patauth-plugin-1.0.0.jar https://github.com/elwin013/nexus3-gitlab-patauth-plugin/releases/download/v1.0.0/nexus3-gitlab-patauth-plugin-1.0.0.jar
 ```
 
 #### 2. Create configuration
