@@ -22,13 +22,11 @@ public class GitlabApi implements Closeable {
     private final HttpUtil httpClient;
     private final String hostUrl;
     private final String token;
-    private final String username;
 
 
-    public GitlabApi(String hostUrl, String username, String personalAccessToken) {
+    public GitlabApi(String hostUrl, String personalAccessToken) {
         this.httpClient = new HttpUtil();
         this.hostUrl = hostUrl;
-        this.username = username;
         this.token = personalAccessToken;
     }
 

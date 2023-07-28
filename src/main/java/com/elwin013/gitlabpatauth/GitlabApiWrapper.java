@@ -41,7 +41,7 @@ public class GitlabApiWrapper {
         if (cachedLogin != null) {
             return cachedLogin;
         }
-        try (GitlabApi api = new GitlabApi(gitlabUrl, username, personalAccessToken)) {
+        try (GitlabApi api = new GitlabApi(gitlabUrl, personalAccessToken)) {
             User currentUser = api.getUserInfo();
 
             if (!Objects.equals(currentUser.getUsername(), username)) {
