@@ -5,6 +5,8 @@ import com.elwin013.gitlabpatauth.api.model.Group;
 import com.elwin013.gitlabpatauth.api.model.User;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 @Singleton
 @Named("GitlabApiWrapper")
 public class GitlabApiWrapper {
+    private static final Logger LOG = LoggerFactory.getLogger(GitlabApiWrapper.class);
+
     private final Cache<String, GitlabPrincipal> principalCache;
     private final String minimalAccessLevel;
     private final List<String> groupsAllowed;
@@ -70,6 +74,7 @@ public class GitlabApiWrapper {
             principalCache.put(cacheKey, principal);
             return principal;
         } catch (IOException e) {
+            LOG.error(String.format("Authorization for user %s failed", username), e);
             return null;
         }
     }
