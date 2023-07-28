@@ -22,7 +22,7 @@ In below steps `${NEXUS_DIR}` is a Nexus directory with binaries. In most cases 
 
 In general, do the steps mentioned in [this nexus development guide](https://sonatype-nexus-community.github.io/nexus-development-guides/plugin-install.html).
 
-Simples solution is to run single command to download `jar` into the `${NEXUS_DIR}/deploy` folder.
+Simplest solution is to run single command to download `jar` into the `${NEXUS_DIR}/deploy` folder.
 Example of command for current version below - it assumes that your `${NEXUS_DIR}` is `/opt/sonatype/nexus`.
 Please note that in some cases it can be `/opt/nexus` - you should tweak it accordingly.
 
