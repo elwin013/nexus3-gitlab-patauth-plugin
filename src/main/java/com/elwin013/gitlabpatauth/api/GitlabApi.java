@@ -3,6 +3,7 @@ package com.elwin013.gitlabpatauth.api;
 import com.elwin013.gitlabpatauth.api.model.Group;
 import com.elwin013.gitlabpatauth.api.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -16,10 +17,13 @@ public class GitlabApi implements Closeable {
     private static final String API_NAMESPACE = "/api/v4";
     private static final TypeReference<Set<Group>> gitlabGroupTyperef = new TypeReference<Set<Group>>() {
     };
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpUtil httpClient;
     private final String hostUrl;
     private final String token;
     private final String username;
+
 
     public GitlabApi(String hostUrl, String username, String personalAccessToken) {
         this.httpClient = new HttpUtil();
@@ -37,7 +41,7 @@ public class GitlabApi implements Closeable {
             );
 
             if (resultStr != null) {
-                return JacksonObjectMapper.get().readValue(resultStr, User.class);
+                return objectMapper.readValue(resultStr, User.class);
             } else {
                 return null;
             }
@@ -60,7 +64,7 @@ public class GitlabApi implements Closeable {
                 );
 
                 if (resultStr != null) {
-                    page = JacksonObjectMapper.get().readValue(resultStr, gitlabGroupTyperef);
+                    page = objectMapper.readValue(resultStr, gitlabGroupTyperef);
                     groups.addAll(page);
                 }
                 pageNumber++;
