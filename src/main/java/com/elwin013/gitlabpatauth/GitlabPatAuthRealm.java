@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @Description("GitLab PAT Authentication Realm")
 public class GitlabPatAuthRealm extends AuthorizingRealm {
     private static final Logger LOG = LoggerFactory.getLogger(GitlabPatAuthRealm.class);
+    public static final String NAME = "GitlabPatAuthRealm";
     private final GitlabApiWrapper apiWrapper;
     private final UserManager userManager;
 
@@ -34,6 +35,7 @@ public class GitlabPatAuthRealm extends AuthorizingRealm {
     public GitlabPatAuthRealm(GitlabApiWrapper apiWrapper, UserManager userManager) {
         this.apiWrapper = apiWrapper;
         this.userManager = userManager;
+        this.setName(NAME);
     }
 
     @Override
@@ -76,7 +78,9 @@ public class GitlabPatAuthRealm extends AuthorizingRealm {
     private void updateUser(GitlabPrincipal principal) {
         try {
             User user = userManager.getUser(principal.getUsername());
-            user.setRoles(principal.getGroups().stream().map(s -> new RoleIdentifier(UserManager.DEFAULT_SOURCE, s.getPath())).collect(Collectors.toSet()));
+            user.setRoles(principal.getGroups().stream().map(
+                    s -> new RoleIdentifier(UserManager.DEFAULT_SOURCE, s.getPath())
+            ).collect(Collectors.toSet()));
             userManager.updateUser(user);
         } catch (UserNotFoundException e) {
             // should not happen
@@ -90,7 +94,9 @@ public class GitlabPatAuthRealm extends AuthorizingRealm {
         user.setLastName(principal.getUsername());
         user.setStatus(UserStatus.active);
         user.setEmailAddress(principal.getEmail());
-        user.setRoles(principal.getGroups().stream().map(s -> new RoleIdentifier(UserManager.DEFAULT_SOURCE, s.getPath())).collect(Collectors.toSet()));
+        user.setRoles(principal.getGroups().stream().map(
+                s -> new RoleIdentifier(UserManager.DEFAULT_SOURCE, s.getPath())
+        ).collect(Collectors.toSet()));
         // random UUID as a password to disallow changing password by user
         userManager.addUser(user, UUID.randomUUID().toString());
     }
