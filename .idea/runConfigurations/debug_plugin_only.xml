@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="debug plugin" type="Remote">
+  <configuration default="false" name="debug plugin only" type="Remote">
     <module name="nexus3-gitlab-patauth-plugin" />
     <option name="USE_SOCKET_TRANSPORT" value="true" />
     <option name="SERVER_MODE" value="false" />
