@@ -66,6 +66,10 @@ public class GitLabPatAuthFakeUserManager extends AbstractReadOnlyUserManager {
         return toUser(userId, cUser);
     }
 
+    public User getUser(String userId, Set<String> set) throws UserNotFoundException {
+        return this.getUser(userId);
+    }
+
     private User toUser(String userId, CUser cUser) {
         User user = new User();
         user.setUserId(cUser.getId());

@@ -10,7 +10,7 @@ and additional configuration - see below.
 
 The reason for `read_api` scope is security - it is safer to use only non-admin user credentials in the other services.
 
-Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1.
+Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1, 3.67.0.
 
 ## Setup
 
