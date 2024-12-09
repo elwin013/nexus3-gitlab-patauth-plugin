@@ -1,6 +1,7 @@
 package com.elwin013.gitlabpatauth.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
@@ -26,6 +27,7 @@ public class Group {
         this.name = name;
     }
 
+    @JsonProperty("full_path")
     public String getPath() {
         return path;
     }

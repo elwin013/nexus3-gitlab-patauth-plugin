@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -72,7 +73,11 @@ public class GitlabPatAuthConfig {
     }
 
     public List<String> getGroupsAllowed() {
-        return Arrays.asList(props.getProperty(GROUPS_ALLOWED_KEY, "").split(","));
+        String allowedGroups = props.getProperty(GROUPS_ALLOWED_KEY, null);
+        if (allowedGroups == null) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(allowedGroups.split(","));
     }
 
     @SuppressWarnings("java:S1168")

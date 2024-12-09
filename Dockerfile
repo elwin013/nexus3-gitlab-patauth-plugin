@@ -1,4 +1,4 @@
-FROM sonatype/nexus3:3.67.0
+FROM sonatype/nexus3:3.75.1
 
 ARG RELEASE_TAG
 ARG PLUGIN_NAME

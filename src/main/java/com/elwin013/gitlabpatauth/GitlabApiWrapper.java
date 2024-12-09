@@ -5,6 +5,7 @@ import com.elwin013.gitlabpatauth.api.model.Group;
 import com.elwin013.gitlabpatauth.api.model.User;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +49,7 @@ public class GitlabApiWrapper {
         try (GitlabApi api = new GitlabApi(gitlabUrl, personalAccessToken)) {
             User currentUser = api.getUserInfo();
 
-            if (!Objects.equals(currentUser.getUsername(), username)) {
+            if (!Objects.equals(StringUtils.lowerCase(currentUser.getUsername()), StringUtils.lowerCase(username))) {
                 return null;
             }
             Set<Group> groups = api.getUserGroups(minimalAccessLevel);
