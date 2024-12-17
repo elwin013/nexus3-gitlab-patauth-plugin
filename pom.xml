@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.sonatype.nexus.plugins</groupId>
         <artifactId>nexus-plugins</artifactId>
-        <version>3.42.0-01</version>
+        <version>3.75.0-06</version>
     </parent>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -28,8 +28,8 @@
 
     <properties>
         <dryRun>true</dryRun>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jersey.version>2.39.1</jersey.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
@@ -82,9 +82,21 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
+                <dependencies>
+                    <!--
+                      To support building nexus-public, we have to select the last version of groovy-eclipse-batch available
+                      in Maven Central. This comes with a downside, as this compiler won't support the use of the parallel
+                      build options in maven (e.g. `-T 1C`).
+                     -->
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-eclipse-batch</artifactId>
+                        <version>3.0.8-01</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
@@ -104,16 +116,11 @@
                         </Bundle-License>
                         <Bundle-DocURL>https://github.com/elwin013/nexus3-gitlab-patauth-plugin</Bundle-DocURL>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Import-Package>*</Import-Package>
-                        <Embed-Dependency>
-                            httpclient;scope=compile
-                        </Embed-Dependency>
-                        <Export-Package>
-                        </Export-Package>
+                        <Embed-Dependency>*;scope=compile|runtime;inline=true</Embed-Dependency>
+                        <Export-Package>com.elwin013.gitlabpatauth</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 

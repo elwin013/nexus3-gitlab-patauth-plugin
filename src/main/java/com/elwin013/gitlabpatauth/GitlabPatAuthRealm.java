@@ -8,6 +8,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.eclipse.sisu.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.nexus.security.authc.NexusApiKeyAuthenticationToken;
 import org.sonatype.nexus.security.role.RoleIdentifier;
 import org.sonatype.nexus.security.user.User;
 import org.sonatype.nexus.security.user.UserManager;
@@ -21,7 +22,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Singleton
-@Named
+@Named(GitlabPatAuthRealm.NAME)
 @Description("GitLab PAT Authentication Realm")
 public class GitlabPatAuthRealm extends AuthorizingRealm {
     private static final Logger LOG = LoggerFactory.getLogger(GitlabPatAuthRealm.class);
@@ -29,6 +30,13 @@ public class GitlabPatAuthRealm extends AuthorizingRealm {
     private final GitlabApiWrapper apiWrapper;
     private final UserManager userManager;
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean supports(AuthenticationToken token) {
+        return token != null && getAuthenticationTokenClass().isAssignableFrom(token.getClass())
+                && (UsernamePasswordToken.class.isAssignableFrom(token.getClass())
+                || NexusApiKeyAuthenticationToken.class.isAssignableFrom(token.getClass()));
+    }
 
     @SuppressWarnings("CdiInjectionPointsInspection")
     @Inject
@@ -60,7 +68,7 @@ public class GitlabPatAuthRealm extends AuthorizingRealm {
         GitlabPrincipal principal = apiWrapper.login(username, password);
         if (principal != null) {
             createOrUpdateUser(principal);
-            return new SimpleAuthenticationInfo(principal, password, getName());
+            return new SimpleAuthenticationInfo(principal.toString(), password, getName());
         }
         return null;
     }

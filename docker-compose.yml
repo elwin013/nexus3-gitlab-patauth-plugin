@@ -11,9 +11,17 @@ services:
     ports:
       - 8081:8081
       - 8082:8082
+      - 5000:5000
     volumes:
       - /nexus-data
       - ./gitlabpatauth.properties:/opt/sonatype/nexus/etc/gitlabpatauth.properties
-      - ./target/${ARTIFACT}-${VERSION}.jar:/opt/sonatype/nexus/system/${PACKAGE}/${ARTIFACT}/${VERSION}/${ARTIFACT}-${VERSION}.jar
-      - ./target/feature/feature.xml:/opt/sonatype/nexus/system/${PACKAGE}/${ARTIFACT}/${VERSION}/${ARTIFACT}-${VERSION}-features.xml
-      - ./pom.xml:/opt/sonatype/nexus/system/${PACKAGE}/${ARTIFACT}/${VERSION}/pom.xml
+      - ./etc/logback:/opt/sonatype/nexus/etc/logback:ro
+#      - ./etc/nexus-default.properties:/opt/sonatype/nexus/etc/nexus-default.properties:ro
+
+      # jar related
+#      - ./target/${ARTIFACT}-${VERSION}.jar:/opt/sonatype/nexus/system/${PACKAGE}/${ARTIFACT}/${VERSION}/${ARTIFACT}-${VERSION}.jar
+#      - ./target/feature/feature.xml:/opt/sonatype/nexus/system/${PACKAGE}/${ARTIFACT}/${VERSION}/${ARTIFACT}-${VERSION}-features.xml
+#      - ./pom.xml:/opt/sonatype/nexus/system/${PACKAGE}/${ARTIFACT}/${VERSION}/pom.xml
+
+      # kar related
+      - ./target/${ARTIFACT}-${VERSION}-bundle.kar:/opt/sonatype/nexus/deploy/${ARTIFACT}-${VERSION}-bundle.kar

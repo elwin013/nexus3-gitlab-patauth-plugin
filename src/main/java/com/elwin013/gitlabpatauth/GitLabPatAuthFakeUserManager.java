@@ -70,6 +70,12 @@ public class GitLabPatAuthFakeUserManager extends AbstractReadOnlyUserManager {
         return this.getUser(userId);
     }
 
+    @Override
+    public boolean isConfigured() {
+        return true;
+    }
+
+
     private User toUser(String userId, CUser cUser) {
         User user = new User();
         user.setUserId(cUser.getId());
