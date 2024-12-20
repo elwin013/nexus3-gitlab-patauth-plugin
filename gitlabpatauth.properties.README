@@ -21,3 +21,10 @@ gitlab.group-minimal-access-level=10
 #   Null value - map all user groups to roles
 #   Empty value - do not map any group
 #gitlab.groups-mapped=my-fancy-group
+
+# Enable or disable username validation on login. GitLab allows token login without specifying
+# the username. If the setting is true it mimics GitLab's behavior.
+# Default - false
+#   true - validate if specified username matches the one from the token
+#   false - allow any username and token combination (token needs to be still valid)
+#gitlab.skip-username-validation=false

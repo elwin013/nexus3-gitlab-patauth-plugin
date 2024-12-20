@@ -28,6 +28,7 @@ public class GitlabApiWrapper {
     private final List<String> groupsAllowed;
     private final List<String> mappedGroups;
     private final String gitlabUrl;
+    private final Boolean skipUsernameValidation;
 
     @Inject
     public GitlabApiWrapper(GitlabPatAuthConfig config) {
@@ -35,6 +36,7 @@ public class GitlabApiWrapper {
         this.minimalAccessLevel = config.getMinimalAccessLevel();
         this.groupsAllowed = config.getGroupsAllowed();
         this.mappedGroups = config.getMappedGroups();
+        this.skipUsernameValidation = config.skipUsernameValidation();
         this.principalCache = CacheBuilder.newBuilder()
                 .expireAfterWrite(config.getLoginCacheTtl())
                 .build();
@@ -49,7 +51,8 @@ public class GitlabApiWrapper {
         try (GitlabApi api = new GitlabApi(gitlabUrl, personalAccessToken)) {
             User currentUser = api.getUserInfo();
 
-            if (!Objects.equals(StringUtils.lowerCase(currentUser.getUsername()), StringUtils.lowerCase(username))) {
+            boolean usernameMatches = Objects.equals(StringUtils.lowerCase(currentUser.getUsername()), StringUtils.lowerCase(username));
+            if (!skipUsernameValidation && !usernameMatches) {
                 return null;
             }
             Set<Group> groups = api.getUserGroups(minimalAccessLevel);

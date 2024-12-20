@@ -1,6 +1,7 @@
 package com.elwin013.gitlabpatauth;
 
 import com.google.inject.Singleton;
+import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,12 +25,15 @@ public class GitlabPatAuthConfig {
     private static final String DEFAULT_GITLAB_URL = "https://gitlab.com";
     private static final String DEFAULT_GITLAB_LOGIN_CACHE_TTL = "1";
     private static final String DEFAULT_GROUP_MINIMAL_ACCESS_LEVEL_KEY = "10"; // Guest
+    private static final Boolean DEFAULT_SKIP_USERNAME_VALIDATION = false;
 
     private static final String GITLAB_URL_KEY = "gitlab.url";
     private static final String LOGIN_CACHE_TTL_KEY = "gitlab.cache-ttl-minutes";
     private static final String GROUP_MINIMAL_ACCESS_LEVEL_KEY = "gitlab.group-minimal-access-level";
     private static final String GROUPS_ALLOWED_KEY = "gitlab.groups-allowed";
     private static final String GROUPS_MAPPED_KEY = "gitlab.groups-mapped";
+    private static final String SKIP_USERNAME_VALIDATION = "gitlab.skip-username-validation";
+
 
     private final Properties props;
 
@@ -87,6 +91,15 @@ public class GitlabPatAuthConfig {
             return null;
         } else {
             return Arrays.asList(prop.split(","));
+        }
+    }
+
+    public Boolean skipUsernameValidation() {
+        String prop = props.getProperty(SKIP_USERNAME_VALIDATION);
+        if (prop == null) {
+            return false;
+        } else {
+            return BooleanUtils.toBoolean(prop);
         }
     }
 }
