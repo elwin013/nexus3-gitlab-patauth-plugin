@@ -10,7 +10,7 @@ and additional configuration - see below.
 
 The reason for `read_api` scope is security - it is safer to use only non-admin user credentials in the other services.
 
-Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1, 3.67.0.
+Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1, 3.67.0, 3.76.0.
 
 ## Setup
 
@@ -27,7 +27,7 @@ Example of command for current version below - it assumes that your `${NEXUS_DIR
 Please note that in some cases it can be `/opt/nexus` - you should tweak it accordingly.
 
 ```sh
-wget -O /opt/sonatype/nexus/deploy/nexus3-gitlab-patauth-plugin-1.0.3.jar https://github.com/elwin013/nexus3-gitlab-patauth-plugin/releases/download/v1.0.3/nexus3-gitlab-patauth-plugin-1.0.3.jar
+wget -O /opt/sonatype/nexus/deploy/nexus3-gitlab-patauth-plugin-2.0.0.jar https://github.com/elwin013/nexus3-gitlab-patauth-plugin/releases/download/v2.0.0/nexus3-gitlab-patauth-plugin-2.0.0.jar
 ```
 
 #### 2. Create configuration
