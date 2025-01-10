@@ -1,6 +1,7 @@
 package com.elwin013.gitlabpatauth.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class Group {
     private Long id;
     private String name;
-    private String path;
+    private String fullPath;
 
     public Long getId() {
         return id;
@@ -26,21 +27,22 @@ public class Group {
         this.name = name;
     }
 
-    public String getPath() {
-        return path;
+    @JsonProperty("full_path")
+    public String getFullPath() {
+        return fullPath;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setFullPath(String fullPath) {
+        this.fullPath = fullPath;
     }
 
     @Override
     public String toString() {
         return "Group{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", path='" + path + '\'' +
-                '}';
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", fullPath='" + fullPath + '\'' +
+               '}';
     }
 
     @Override
@@ -48,11 +50,11 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return Objects.equals(id, group.id) && Objects.equals(path, group.path);
+        return Objects.equals(id, group.id) && Objects.equals(fullPath, group.fullPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, path);
+        return Objects.hash(id, fullPath);
     }
 }

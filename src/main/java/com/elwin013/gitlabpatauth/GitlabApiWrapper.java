@@ -53,12 +53,13 @@ public class GitlabApiWrapper {
             Set<Group> groups = api.getUserGroups(minimalAccessLevel);
 
             if (!groupsAllowed.isEmpty() &&
-                    groups.stream().noneMatch(group -> groupsAllowed.contains(group.getPath()))) {
+                    groups.stream().noneMatch(group -> groupsAllowed.contains(group.getFullPath()))) {
                 return null;
             }
 
             if (mappedGroups != null) {
                 groups = groups.stream().filter(group -> mappedGroups.contains(group.getPath())).collect(Collectors.toSet());
+                groups = groups.stream().filter(group -> mappedGroups.contains(group.getFullPath())).collect(Collectors.toSet());
             }
 
             GitlabPrincipal principal = new GitlabPrincipal(
@@ -66,7 +67,7 @@ public class GitlabApiWrapper {
                     currentUser.getUsername(),
                     personalAccessToken,
                     groups.stream()
-                            .map(group -> new GitlabPrincipal.Group(group.getPath(), group.getName()))
+                            .map(group -> new GitlabPrincipal.Group(group.getFullPath(), group.getName()))
                             .collect(Collectors.toSet())
             );
 
