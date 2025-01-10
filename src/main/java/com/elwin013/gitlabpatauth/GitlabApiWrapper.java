@@ -57,8 +57,7 @@ public class GitlabApiWrapper {
                 return null;
             }
 
-            if (mappedGroups != null) {
-                groups = groups.stream().filter(group -> mappedGroups.contains(group.getPath())).collect(Collectors.toSet());
+            if (!mappedGroups.isEmpty()) {
                 groups = groups.stream().filter(group -> mappedGroups.contains(group.getFullPath())).collect(Collectors.toSet());
             }
 
