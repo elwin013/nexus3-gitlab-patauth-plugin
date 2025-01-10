@@ -13,7 +13,6 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,7 +47,7 @@ public class GitlabApiWrapper {
         try (GitlabApi api = new GitlabApi(gitlabUrl, personalAccessToken)) {
             User currentUser = api.getUserInfo();
 
-            if (!Objects.equals(currentUser.getUsername(), username)) {
+            if (currentUser == null || !username.equalsIgnoreCase(currentUser.getUsername())) {
                 return null;
             }
             Set<Group> groups = api.getUserGroups(minimalAccessLevel);
