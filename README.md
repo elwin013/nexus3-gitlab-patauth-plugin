@@ -6,11 +6,11 @@ personal access token (PAT) with scopes:
 * `read_api` to get information about available groups for the user who is logging in.
 
 Successfully logged-in user groups will be mapped into roles (if a role in Nexus is created). For more details on that
-and additional configuration - see below.
+and additional configuration—see below.
 
-The reason for `read_api` scope is security - it is safer to use only non-admin user credentials in the other services.
+The reason for `read_api` scope is security—it is safer to use only non-admin user credentials in the other services.
 
-Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1, 3.67.0, 3.76.0.
+Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1, 3.67.0, 3.76.0. Should work with other versions too. :-)
 
 ## Setup
 
@@ -22,8 +22,8 @@ In below steps `${NEXUS_DIR}` is a Nexus directory with binaries. In most cases 
 
 In general, do the steps mentioned in [this nexus development guide](https://sonatype-nexus-community.github.io/nexus-development-guides/plugin-install.html).
 
-Simplest solution is to run single command to download `jar` into the `${NEXUS_DIR}/deploy` folder.
-Example of command for current version below - it assumes that your `${NEXUS_DIR}` is `/opt/sonatype/nexus`.
+The simplest solution is to run single command to download `jar` into the `${NEXUS_DIR}/deploy` folder.
+Example of command for the current version below—it assumes that your `${NEXUS_DIR}` is `/opt/sonatype/nexus`.
 Please note that in some cases it can be `/opt/nexus` - you should tweak it accordingly.
 
 ```sh
@@ -42,12 +42,12 @@ Restart Nexus to let it pick up the newly installed plugin.
 
 #### 4. Enable _GitLab PAT Authentication Realm_
 
-Go to Nexus Administration -> Security -> Realms and enable _GitLab PAT Authentication Realm_ (move it to the right) and
+Go to Nexus Administration → Security → Realms and enable _GitLab PAT Authentication Realm_ (move it to the right) and
 save. It should go after the built-in realms.
 
 #### 5. Create roles that should be mapped and add permissions
 
-Go to Administration -> Security -> Roles and create any roles (with type "Nexus role") that you want to be mapped.
+Go to Administration → Security → Roles and create any roles (with type "Nexus role") that you want to be mapped.
 Please note that `id` of the role needs to be equal to the path of the GitLab group.
 
 ### Configuration
@@ -76,19 +76,19 @@ Below steps must be done by every user who wants to access Nexus:
 
 ### Login to Nexus
 
-After generating the token users can log in to Nexus using their Gitlab username and token. That pair can be also used
-for logging in to download dependencies (for example in Maven's `settings.xml` or when using `npm login`).
+After generating the token, users can log in to Nexus using their Gitlab username and token. That pair can be also used
+for logging in to download dependencies (for example, in Maven's `settings.xml` or when using `npm login`).
 
 ## Development
 
-For development purposes, there is Dockerfile and docker-compose.yml file in this repository.  This allows quickly
+For development purposes, there is a Dockerfile and docker-compose.yml file in this repository.  This allows quickly
 spinning up a Nexus instance with a preinstalled plugin. Nexus instance will be available on port 8081 and debugging port
 (for Java remote debug) is 8082.
 
 Docker compose configuration creates docker volume for `nexus-data` - thanks to that there is no need to set up
 Nexus from scratch every time the container is recreated.
 
-There are run configurations for Intellij that allow to spin up it with one click (`run nexus with plugin` which
+There are run configurations for Intellij that allow to spin it up with one click (`run nexus with plugin` which
 run packaging and recreates the container) and connect remote debugging (`debug plugin` configuration).
 
 To build a plugin run `mvn clean package`.
@@ -106,8 +106,8 @@ nexus.h2.httpListenerEnabled=true
 nexus.h2.httpListenerPort=8099
 ```
 
-After restart you can access it through UI on port 8099 (in case of Docker Compose setup it will be at `http://localhost:8099`).
-In the login window change the JDBC URL to `jdbc:h2:file:nexus`, leave User Name and Password empty - as on the image:
+After restart, you can access it through UI on port 8099 (in case of Docker Compose setup it will be at `http://localhost:8099`).
+In the login window change the JDBC URL to `jdbc:h2:file:nexus`, leave `User Name` and `Password` empty - as on the image:
 
 ![nexus-h2-access.png](nexus-h2-access.png)
 
