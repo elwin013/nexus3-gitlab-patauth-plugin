@@ -93,6 +93,24 @@ run packaging and recreates the container) and connect remote debugging (`debug 
 
 To build a plugin run `mvn clean package`.
 
+## Additional notes
+
+### Accessing the internal H2 database
+
+From version 3.70 OrientDB database is no longer supported in Nexus. One of the possible replacements is H2.
+
+To access the database, you need to add the following lines to `/opt/sonatype/sonatype-work/nexus3/etc/nexus.properties`
+
+```
+nexus.h2.httpListenerEnabled=true
+nexus.h2.httpListenerPort=8099
+```
+
+After restart you can access it through UI on port 8099 (in case of Docker Compose setup it will be at `http://localhost:8099`).
+In the login window change the JDBC URL to `jdbc:h2:file:nexus`, leave User Name and Password empty - as on the image:
+
+![nexus-h2-access.png](nexus-h2-access.png)
+
 ## License
 
 [MIT](LICENSE)

@@ -11,6 +11,7 @@ services:
     ports:
       - 8081:8081
       - 8082:8082
+      - 8099:8099
     volumes:
       - /nexus-data
       - ./gitlabpatauth.properties:/opt/sonatype/nexus/etc/gitlabpatauth.properties
