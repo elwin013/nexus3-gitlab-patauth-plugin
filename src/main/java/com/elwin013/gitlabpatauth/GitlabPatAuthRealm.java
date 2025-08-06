@@ -5,6 +5,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.eclipse.sisu.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +18,14 @@ import org.sonatype.nexus.security.user.UserStatus;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Singleton
 @Named
 @Description("GitLab PAT Authentication Realm")
-public class GitlabPatAuthRealm extends AuthorizingRealm {
+public final class GitlabPatAuthRealm extends AuthorizingRealm {
     private static final Logger LOG = LoggerFactory.getLogger(GitlabPatAuthRealm.class);
     public static final String NAME = "GitlabPatAuthRealm";
     private final GitlabApiWrapper apiWrapper;
@@ -41,11 +43,18 @@ public class GitlabPatAuthRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         AuthorizationInfo info = null;
-        Object principal = principalCollection.getPrimaryPrincipal();
-        if (principal instanceof GitlabPrincipal) {
-            GitlabPrincipal gitlabPrincipal = (GitlabPrincipal) principal;
-            LOG.info("doGetAuthorizationInfo for user {} with roles {}", gitlabPrincipal.getUsername(), gitlabPrincipal.getGroups());
-            info = new SimpleAuthorizationInfo(gitlabPrincipal.getGroups().stream().map(GitlabPrincipal.Group::getPath).collect(Collectors.toSet()));
+        Set<String> realms = principalCollection.getRealmNames();
+        if (realms.contains(getName())) {
+            try {
+                User user = userManager.getUser(principalCollection.fromRealm(getName()).iterator().next().toString());
+
+                Set<String> roles = user.getRoles().stream().map(RoleIdentifier::getRoleId).collect(Collectors.toSet());
+                LOG.info("doGetAuthorizationInfo for user {} with roles {}", user.getName(), roles);
+                info = new SimpleAuthorizationInfo(roles);
+            }
+            catch (UserNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
         return info;
     }
@@ -60,7 +69,7 @@ public class GitlabPatAuthRealm extends AuthorizingRealm {
         GitlabPrincipal principal = apiWrapper.login(username, password);
         if (principal != null) {
             createOrUpdateUser(principal);
-            return new SimpleAuthenticationInfo(principal, password, getName());
+            return new SimpleAuthenticationInfo(new SimplePrincipalCollection(username, getName()), password, getName());
         }
         return null;
     }

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-public class GitlabPrincipal implements Serializable {
+public final class GitlabPrincipal implements Serializable {
+    private static final long serialVersionUID = -4927475507030364624L;
+
     private final String email;
     private final String username;
     private final String password;
@@ -34,11 +36,26 @@ public class GitlabPrincipal implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {return false;}
+        GitlabPrincipal that = (GitlabPrincipal) o;
+        return Objects.equals(email, that.email) &&
+               Objects.equals(username, that.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, username);
+    }
+
+    @Override
     public String toString() {
         return username;
     }
 
     public static class Group implements Serializable {
+        private static final long serialVersionUID = 6262085597676672613L;
+
         private final String path;
         private final String name;
 

@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class HttpUtil implements Closeable {
+public final class HttpUtil implements Closeable {
     private static final Logger LOG = LoggerFactory.getLogger(HttpUtil.class);
 
     private final ResponseHandler<String> responseHandler = response -> {

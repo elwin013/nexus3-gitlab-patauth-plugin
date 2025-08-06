@@ -12,11 +12,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GitlabApi implements Closeable {
+public final class GitlabApi implements Closeable {
     public static final String PRIVATE_TOKEN = "Private-Token";
     private static final String API_NAMESPACE = "/api/v4";
-    private static final TypeReference<Set<Group>> gitlabGroupTyperef = new TypeReference<Set<Group>>() {
-    };
+    private static final TypeReference<Set<Group>> gitlabGroupTyperef = new TypeReference<Set<Group>>() {};
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private final HttpUtil httpClient;
@@ -90,5 +89,4 @@ public class GitlabApi implements Closeable {
         static final String USER = "/user";
         static final String GROUPS = "/groups";
     }
-
 }
