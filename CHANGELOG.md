@@ -2,7 +2,11 @@
 
 All notable changes should be noted here.
 
-## 2.0.0 - 2025/10/01
+## 3.0.0 - 2025/08/06
+
+* BREAKING: Change principal from GitlabPrincipal class to SimplePrincipalCollection to prevent (de)serialization errors
+
+## 2.0.0 - 2025/01/10
 
 * BREAKING: Use full path of Group (`full_path`) to match against the allowed/mapped groups
 * Ignore the username letter case (mimic the GitLab behavior)
