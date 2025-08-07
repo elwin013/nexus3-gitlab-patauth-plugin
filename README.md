@@ -27,7 +27,7 @@ Example of command for the current version below—it assumes that your `${NEXUS
 Please note that in some cases it can be `/opt/nexus` - you should tweak it accordingly.
 
 ```sh
-wget -O /opt/sonatype/nexus/deploy/nexus3-gitlab-patauth-plugin-3.0.0.jar https://github.com/elwin013/nexus3-gitlab-patauth-plugin/releases/download/v3.0.0/nexus3-gitlab-patauth-plugin-3.0.0.jar
+wget -O /opt/sonatype/nexus/deploy/nexus3-gitlab-patauth-plugin-3.0.1.jar https://github.com/elwin013/nexus3-gitlab-patauth-plugin/releases/download/v3.0.1/nexus3-gitlab-patauth-plugin-3.0.1.jar
 ```
 
 #### 2. Create configuration

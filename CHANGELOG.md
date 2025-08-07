@@ -2,6 +2,10 @@
 
 All notable changes should be noted here.
 
+## 3.0.1 - 2025/08/07
+
+* fix: update serialVersionUID for GitlabPrincipal$Group
+
 ## 3.0.0 - 2025/08/06
 
 * BREAKING: Change principal from GitlabPrincipal class to SimplePrincipalCollection to prevent (de)serialization errors
