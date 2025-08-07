@@ -54,7 +54,7 @@ public final class GitlabPrincipal implements Serializable {
     }
 
     public static class Group implements Serializable {
-        private static final long serialVersionUID = 6262085597676672613L;
+        private static final long serialVersionUID = -863190603272730418L;
 
         private final String path;
         private final String name;
