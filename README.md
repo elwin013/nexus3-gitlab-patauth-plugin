@@ -1,5 +1,16 @@
 # nexus3-gitlab-patauth-plugin
 
+> [!WARNING]
+> **Nexus Repository 3.78+ is not supported**
+>
+> This plugin works with **Sonatype Nexus Repository up to 3.77.x**.
+> Starting with **3.78.0**, Nexus Repository migrated to a Spring Boot architecture and introduced a **breaking change for custom plugins**, so **this plugin will not work on 3.78.0 and newer**.
+>
+> References:
+> - Nexus 3.78.0 release notes (breaking change): https://help.sonatype.com/en/sonatype-nexus-repository-3-78-0-release-notes.html#breaking-change-for-custom-plugins--nexus-repository-migrates-to-spring-boot-architecture
+> - Sonatype Community thread: https://community.sonatype.com/t/custom-plugins-still-possible-starting-with-3-78/14589
+
+
 A plugin for Sonatype Nexus OSS that adds an authentication realm allowing to authenticate using GitLab username and
 personal access token (PAT) with scopes:
 * `read_user` to get information about the user,
@@ -10,7 +21,7 @@ and additional configuration—see below.
 
 The reason for `read_api` scope is security—it is safer to use only non-admin user credentials in the other services.
 
-Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1, 3.67.0, 3.76.0. Should work with other versions too. :-)
+Verified working with Nexus 3.42.0, 3.56.0 and 3.58.1, 3.67.0, 3.76.0 (up to 3.77.x).
 
 ## Setup
 
